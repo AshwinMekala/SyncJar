@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<!-- code_editor links -->
+
+        <link rel="stylesheet" href="./lib/codemirror.css">
+        <link rel="stylesheet" href="./addon/fold/foldgutter.css">
+        <link rel="stylesheet" href="./addon/dialog/dialog.css">
+        <link rel="stylesheet" href="./theme/monokai.css">
+        <link rel="stylesheet" href="./theme/ambiance.css">
+        <link rel="stylesheet" href="./addon/scroll/simplescrollbars.css">
+        <link rel="stylesheet" href="./addon/display/fullscreen.css">
+        <style type="text/css">
+          .CodeMirror {border-top: 1px solid #101010; border-bottom: 1px solid #000; line-height: 1.3; height: 100%; width: 100%;}
+          .CodeMirror-linenumbers { padding: 0 8px; }
+
+          .pull-right {
+            float: right !important;
+          }
+        </style>
+
+        <script src="./lib/codemirror.js"></script>
+        <script src="./addon/search/searchcursor.js"></script>
+        <script src="./addon/search/search.js"></script>
+        <script src="./addon/dialog/dialog.js"></script>
+        <script src="./addon/edit/matchbrackets.js"></script>
+        <script src="./addon/edit/closebrackets.js"></script>
+        <script src="./addon/comment/comment.js"></script>
+        <script src="./addon/wrap/hardwrap.js"></script>
+        <script src="./addon/fold/foldcode.js"></script>
+        <script src="./addon/fold/brace-fold.js"></script>
+        <script src="./mode/javascript/javascript.js"></script>
+        <script src="./keymap/sublime.js"></script>
+        <script src="./addon/scroll/simplescrollbars.js"></script>
+        <script src="./addon/display/fullscreen.js"></script>
+        <script src="./addon/selection/active-line.js"></script>
+        <script src="./addon/mode/loadmode.js"></script>
+        <script src="./mode/meta.js"></script>
+        <script src="./mode/htmlmixed/htmlmixed.js"></script>
+
+        <!-- end of code_editor links -->
+
+	</head>
+	<body>
+		<div id="jar"></div>
+		<!--  code_editor javascript code -->
+
+	      <script>
+
+	        var value = "//this is my edit";
+	        
+	        var editor = CodeMirror(document.getElementById("jar"), {
+	          value: value,
+	          lineNumbers: true,
+	          styleActiveLine: true,
+	          keyMap: "sublime",
+	          autoCloseBrackets: true,
+	          matchBrackets: true,
+	          showCursorWhenSelecting: true,
+	          theme: "ambiance",
+	          lineWrapping: true,
+	          scrollbarStyle: "simple",
+	          extraKeys: {
+	            "F11": function(cm) {
+	              cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+	            },
+	            "Esc": function(cm) {
+	              if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+	            }
+	          }
+	        });
+	        editor.setOption("mode", 'puppet');
+   		 	CodeMirror.autoLoadMode(editor, mode);
+
+	        var $i=0;
+	        ajaxReq();
+	        //setInterval(ajaxReq,1000);
+	        function ajaxReq() {
+	          $.get( "sample.html", function( data ) {
+	          editor.setValue(data);
+	          $i++;
+	          // editor.setCursor($i,10);
+	        });
+	        }
+
+	        
+	      </script>
+
+      <!--  code_editor javascript code -->
+	</body>
+</html>
